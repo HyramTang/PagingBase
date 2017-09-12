@@ -6,11 +6,12 @@
 
 <script type="text/javascript">
     $(function () {
-        var total = "100";
         //for (var i = 1; i <= total; i++) {
         //    var ref = showPages(i, total)
         //    console.info(ref);
         //}
+
+        var total = "100";
         $("#page").append(showPages(1, 100))
     })
     function showPages(page, total) {
@@ -86,23 +87,28 @@
     //    return str;
     //}
 </script>
-<div id="page"></div>
 
-<ul class="pagination">
-    <li>
-        <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-        </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-        <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    </li>
-</ul>
+<div class="container">
+    <h3>Bootstrap分页样式(无事件)</h3>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+
+    <h3>简单前端分页效果：</h3>
+    <div id="page"></div>
+</div>
 

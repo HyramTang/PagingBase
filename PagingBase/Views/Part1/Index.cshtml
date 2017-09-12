@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Pagination";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        var total = "100";
+        //for (var i = 1; i <= total; i++) {
+        //    var ref = showPages(i, total)
+        //    console.info(ref);
+        //}
+        $("#page").append(showPages(1, 100))
+    })
+    function showPages(page, total) {
+        var str = "";
+        var pre = '<li><a href="javascript:changePage(' + (page-1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>', next = '<li><a href="javascript:changePage(' + (page+1) + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
+
+        if (page <= 3) {
+            for (var i = 1; i <= 5; i++) {
+                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+            }
+            str=str + next;
+        } else if (page >= 96) {
+            for (var i = 96; i <= total; i++) {
+                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+            }
+            str=pre + str;
+        } else {
+            for (var i = (page - 2) ; i <= page + 2; i++) {
+                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+            }
+            str=pre + str + next;
+        }
+        return '<ul class="pagination">' + str + '</ul>';
+    }
+
+    function changePage(i) {
+        $("#page").html('');
+        $("#page").append(showPages(i, 100))
+    }
+
+    //function showPages(page, total) {
+    //    var str = "";
+    //    var pre = "< ", next = " >";
+    //    if (page <= 3) {
+    //        for (var i = 1; i <= 5; i++) {
+    //            str += i == page ? "<a>" + page + "<a/> " : i + " ";
+    //        }
+    //        return str + next;
+    //    } else if (page >= 96) {
+    //        for (var i = 96; i <= total; i++) {
+    //            str += i == page ? "<a>" + page + "<a/> " : i + " ";
+    //        }
+    //        return pre + str;
+    //    } else {
+    //        for (var i = (page - 2) ; i <= page + 2; i++) {
+    //            str += i == page ? "<a>" + page + "<a/> " : i + " ";
+    //        }
+    //        return pre + str + next;
+    //    }
+    //}
+    //function showPages(page, total) {
+    //    var str = page + '';
+    //    for (var i = 1; i <= 3; i++) {
+    //        if (page - i > 1) {
+    //            str = page - i + ' ' + str;
+    //        }
+    //        if (page + i < total) {
+    //            str = str + ' ' + (page + i);
+    //        }
+    //    }
+    //    if (page - 4 > 1) {
+    //        str = '... ' + str;
+    //    }
+    //    if (page > 1) {
+    //        str = '上一页 ' + 1 + ' ' + str;
+    //    }
+    //    if (page + 4 < total) {
+    //        str = str + ' ...';
+    //    }
+    //    if (page < total) {
+    //        str = str + ' ' + total + ' 下一页';
+    //    }
+    //    return str;
+    //}
+</script>
+<div id="page"></div>
+
+<ul class="pagination">
+    <li>
+        <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+        <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+</ul>
+

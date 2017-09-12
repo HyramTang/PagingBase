@@ -1,19 +1,23 @@
 ﻿
 @{
-    ViewBag.Title = "Pagination";
+    ViewBag.Title = "Part1";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script type="text/javascript">
+<script>
     $(function () {
         //for (var i = 1; i <= total; i++) {
         //    var ref = showPages(i, total)
         //    console.info(ref);
         //}
 
+        //总页数
         var total = "100";
-        $("#page").append(showPages(1, 100))
+        //显示第几页，总页数
+        $("#page").append(showPages(1, total))
     })
+
+    //生成分页HTML样式代码
     function showPages(page, total) {
         var str = "";
         var pre = '<li><a href="javascript:changePage(' + (page-1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>', next = '<li><a href="javascript:changePage(' + (page+1) + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
@@ -37,6 +41,7 @@
         return '<ul class="pagination">' + str + '</ul>';
     }
 
+    //页数点击事件
     function changePage(i) {
         $("#page").html('');
         $("#page").append(showPages(i, 100))

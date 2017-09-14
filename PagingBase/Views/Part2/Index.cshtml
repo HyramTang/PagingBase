@@ -6,55 +6,25 @@
 
 <script>
     $(function () {
-        //for (var i = 1; i <= total; i++) {
-        //    var ref = showPages(i, total)
-        //    console.info(ref);
-        //}
-
         //总页数
         var total = "100";
         //显示第几页，总页数
-        $("#page").append(showPages(1, total))
+        $("#page").append(Paging(1, total))
     })
-
-    //生成分页HTML样式代码
-    function showPages(page, total) {
-        var str = "";
-        var pre = '<li><a href="javascript:changePage(' + (page-1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>', next = '<li><a href="javascript:changePage(' + (page+1) + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
-
-        if (page <= 3) {
-            for (var i = 1; i <= 5; i++) {
-                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-            str=str + next;
-        } else if (page >= 96) {
-            for (var i = 96; i <= total; i++) {
-                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-            str=pre + str;
-        } else {
-            for (var i = (page - 2) ; i <= page + 2; i++) {
-                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-            str=pre + str + next;
-        }
-        return '<ul class="pagination">' + str + '</ul>';
-    }
 
     //页数点击事件
     function changePage(i) {
         $("blockquote p").text("This is page " + i);
         $("#page").html('');
-        $("#page").append(showPages(i, 100))
+        $("#page").append(Paging(i, 100))
     }
 </script>
-
 
 <div class="container-fluid" style="margin-left:15px">
     <h3>动态显示内容分页效果：</h3>
 
     <blockquote style="margin-bottom:0px">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <p>This is page 1</p>
     </blockquote>
     <div id="page"></div>
 </div>

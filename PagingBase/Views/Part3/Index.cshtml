@@ -1,8 +1,60 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Part3";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<script>
+    var totalCount, totalPage, pageSize = 20;
+    $(function () {
+        //获取Table数据
+        getTableData(1, pageSize);
+    })
 
+    //生成Table数据
+    function getTableData(pageIndex, pageSize) {
+        $.getJSON("@Url.Action("GetPageData")", { pageIndex: pageIndex, pageSize: pageSize }, function (data) {
+            var $table = $("#table");
+            $table.html("");
+            //插入Header
+            $table.append("<thead>"
+                        + "<tr>"
+                        + "<th>第一列</th>"
+                        + "<th>第二列</th>"
+                        + "<th>第三列</th>"
+                        + "</tr>"
+                        + "</thead>");
+            $(data.data).each(function (index, val) {
+                $table.append("<tr>"
+                            + "<td>" + val.A + "</td>"
+                            + "<td>" + val.B + "</td>"
+                            + "<td>" + val.C + "</td>"
+                            + "</tr>");
+            })
+
+            totalCount = data.totalCount;
+            totalPage = parseInt(totalCount / pageSize);
+            totalPage = totalCount % pageSize > 0 ? totalPage + 1 : totalPage;
+            generatePage(pageIndex, totalPage);
+        })
+    }
+
+    //生成分页
+    function generatePage(pageIndex, totalPage) {
+        //显示第几页，总页数
+        $("#page").html('');
+        $("#page").append(Paging(pageIndex, totalPage))
+    }
+
+    //页数点击事件
+    function changePage(i) {
+        getTableData(i, pageSize);
+    }
+</script>
+
+<div class="container-fluid" style="margin-left:15px">
+    <h3>请求后台数据分页：</h3>
+
+    <table id="table" class="table table-hover table-bordered" style="margin-bottom: 0px;"></table>
+    <div id="page" style="margin-top: -10px;"></div>
+</div>

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Part4";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -33,6 +33,7 @@
             })
 
             var totalCount = data.totalCount;
+            $("#total").text("总共：" + totalCount);
             var totalPage = parseInt(totalCount / pageSize);
             totalPage = totalCount % pageSize > 0 ? totalPage + 1 : totalPage;
             generatePage(pageIndex, totalPage);
@@ -57,5 +58,6 @@
 
     <table id="table" class="table table-hover table-bordered" style="margin-bottom: 0px;"></table>
     <div id="page" style="margin-top: -10px;"></div>
+    <div id="total" class="pull-right" style="bottom:50px;position:relative;margin-right:10px"></div>
 </div>
 

@@ -1,4 +1,4 @@
-﻿using PagingBase.Models;
+﻿using PagingBase.EF;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,30 +13,36 @@ namespace PagingBase.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 前端请求
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public JsonResult GetPageData(int pageIndex, int pageSize)
         {
-            //模拟数据库数据---------------------------------------------------------
-            int totalCount = 996;
-            int totalPage = totalCount / pageSize;
+            int totalCount = 0, totalPage = 0;
+            List<PagingData> lst = GetDatabaseData(pageIndex, pageSize, out totalCount);
+            totalPage = totalCount / pageSize;
             totalPage = (totalCount % pageSize) > 0 ? totalPage + 1 : totalPage;
-            List<TableField> lst = GenerateData(totalCount).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
             return Json(new { data = lst, totalCount = totalCount }, JsonRequestBehavior.AllowGet);
         }
 
-        public List<TableField> GenerateData(int totalPage)
+        /// <summary>
+        /// 查询数据库
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="Total"></param>
+        /// <returns></returns>
+        public List<PagingData> GetDatabaseData(int pageIndex, int pageSize, out int Total)
         {
-            List<TableField> lst = new List<TableField>();
-            for (int i = 1; i <= totalPage; i++)
+            using (PagingDBEntities context = new PagingDBEntities())
             {
-                lst.Add(new TableField()
-                {
-                    A = "A" + i,
-                    B = "B" + i,
-                    C = "C" + i
-                });
+                Total = context.PagingData.Count();
+                return context.PagingData.OrderBy(p => p.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             }
-            return lst;
         }
     }
 }

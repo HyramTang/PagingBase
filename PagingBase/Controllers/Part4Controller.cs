@@ -5,9 +5,9 @@ using System.Web.Mvc;
 
 namespace PagingBase.Controllers
 {
-    public class Part3Controller : Controller
+    public class Part4Controller : Controller
     {
-        // GET: Part3
+        // GET: Part4
         public ActionResult Index()
         {
             return View();

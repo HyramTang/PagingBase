@@ -12,7 +12,7 @@ namespace PagingBase
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Part2", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Part4", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

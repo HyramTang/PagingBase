@@ -5,38 +5,37 @@
 }
 
 <script>
+    //总页数
+    var pagetotal = 10;
     $(function () {
-        //for (var i = 1; i <= total; i++) {
-        //    var ref = showPages(i, total)
+        //for (var i = 1; i <= pagetotal; i++) {
+        //    var ref = showPages(i, pagetotal)
         //    console.info(ref);
         //}
-
-        //总页数
-        var total = "100";
         //显示第几页，总页数
-        $("#page").append(showPages(1, total))
+        $("#page").append(showPages(1, pagetotal))
     })
 
     //生成分页HTML样式代码
-    function showPages(page, total) {
+    function showPages(pageindex, pagetotal) {
         var str = "";
-        var pre = '<li><a href="javascript:changePage(' + (page-1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>', next = '<li><a href="javascript:changePage(' + (page+1) + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
+        var pre = '<li><a href="javascript:changePage(' + (pageindex - 1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>', next = '<li><a href="javascript:changePage(' + (pageindex + 1) + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
 
-        if (page <= 3) {
+        if (pageindex <= 3) {
             for (var i = 1; i <= 5; i++) {
-                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
             }
-            str=str + next;
-        } else if (page >= 96) {
-            for (var i = 96; i <= total; i++) {
-                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+            str = str + next;
+        } else if (pageindex >= (pagetotal - 4)) {
+            for (var i = (pagetotal - 4) ; i <= pagetotal; i++) {
+                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
             }
-            str=pre + str;
+            str = pre + str;
         } else {
-            for (var i = (page - 2) ; i <= page + 2; i++) {
-                str += '<li class=\"' + (i == page ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+            for (var i = (pageindex - 2) ; i <= pageindex + 2; i++) {
+                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
             }
-            str=pre + str + next;
+            str = pre + str + next;
         }
         return '<ul class="pagination">' + str + '</ul>';
     }
@@ -44,7 +43,7 @@
     //页数点击事件
     function changePage(i) {
         $("#page").html('');
-        $("#page").append(showPages(i, 100))
+        $("#page").append(showPages(i, pagetotal))
     }
 
     //function showPages(page, total) {
@@ -96,14 +95,14 @@
 <div class="container">
     <h3>Bootstrap分页样式(无事件)</h3>
     <ul class="pagination">
-        <li>
+        @*<li>
             <a href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
-        </li>
+        </li>*@
         <li><a href="#">1</a></li>
         <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
+        <li class="active"><a href="#">3</a></li>
         <li><a href="#">4</a></li>
         <li><a href="#">5</a></li>
         <li>

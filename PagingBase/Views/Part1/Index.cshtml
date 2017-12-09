@@ -18,19 +18,22 @@
 
     //生成分页HTML样式代码
     function showPages(pageindex, pagetotal) {
-        var str = "";
-        var pre = '<li><a href="javascript:changePage(' + (pageindex - 1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>', next = '<li><a href="javascript:changePage(' + (pageindex + 1) + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
+        var str = "",
+            prePageIndex = (pageindex - 1) <= 0 ? pagetotal : (pageindex - 1),
+            nexPageIndex = (pageindex + 1) > pagetotal ? 1 : (pageindex + 1);
+        var pre = '<li><a href="javascript:changePage(' + prePageIndex + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>',
+            next = '<li><a href="javascript:changePage(' + nexPageIndex + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
 
         if (pageindex <= 3) {
             for (var i = 1; i <= 5; i++) {
                 str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
             }
-            str = str + next;
-        } else if (pageindex >= (pagetotal - 4)) {
+            str = pre + str + next;
+        } else if (pageindex > (pagetotal - 3)) {
             for (var i = (pagetotal - 4) ; i <= pagetotal; i++) {
                 str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
             }
-            str = pre + str;
+            str = pre + str + next;
         } else {
             for (var i = (pageindex - 2) ; i <= pageindex + 2; i++) {
                 str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
@@ -92,14 +95,14 @@
     //}
 </script>
 
-<div class="container">
+<div class="container-fluid" style="margin-left:15px">
     <h3>Bootstrap分页样式(无事件)</h3>
     <ul class="pagination">
-        @*<li>
+        <li>
             <a href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
-        </li>*@
+        </li>
         <li><a href="#">1</a></li>
         <li><a href="#">2</a></li>
         <li class="active"><a href="#">3</a></li>

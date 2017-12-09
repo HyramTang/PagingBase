@@ -34,17 +34,17 @@
 
             var totalCount = data.totalCount;
             $("#total").text("总共：" + totalCount);
-            var totalPage = parseInt(totalCount / pageSize);
-            totalPage = totalCount % pageSize > 0 ? totalPage + 1 : totalPage;
-            generatePage(pageIndex, totalPage);
+            var pagetotal = parseInt(totalCount / pageSize);
+            pagetotal = totalCount % pageSize > 0 ? pagetotal + 1 : pagetotal;
+            generatePage(pageIndex, pagetotal);
         })
     }
 
     //生成分页
-    function generatePage(pageIndex, totalPage) {
+    function generatePage(pageIndex, pagetotal) {
         //显示第几页，总页数
         $("#page").html('');
-        $("#page").append(Paging(pageIndex, totalPage))
+        $("#page").append(Paging(pageIndex, pagetotal))
     }
 
     //页数点击事件

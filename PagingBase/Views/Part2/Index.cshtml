@@ -5,18 +5,18 @@
 }
 
 <script>
+    //总页数
+    var pagetotal = 20;
     $(function () {
-        //总页数
-        var total = "100";
         //显示第几页，总页数
-        $("#page").append(Paging(1, total))
+        $("#page").append(Paging(1, pagetotal))
     })
 
     //页数点击事件
     function changePage(i) {
         $("blockquote p").text("This is page " + i);
         $("#page").html('');
-        $("#page").append(Paging(i, 100))
+        $("#page").append(Paging(i, pagetotal))
     }
 </script>
 

@@ -33,17 +33,17 @@
             })
 
             var totalCount = data.totalCount;
-            var totalPage = parseInt(totalCount / pageSize);
-            totalPage = totalCount % pageSize > 0 ? totalPage + 1 : totalPage;
-            generatePage(pageIndex, totalPage);
+            var pageTotal = parseInt(totalCount / pageSize);
+            pageTotal = totalCount % pageSize > 0 ? pageTotal + 1 : pageTotal;
+            generatePage(pageIndex, pageTotal);
         })
     }
 
     //生成分页
-    function generatePage(pageIndex, totalPage) {
+    function generatePage(pageIndex, pageTotal) {
         //显示第几页，总页数
         $("#page").html('');
-        $("#page").append(Paging(pageIndex, totalPage))
+        $("#page").append(Paging(pageIndex, pageTotal))
     }
 
     //页数点击事件

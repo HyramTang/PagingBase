@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        var pageTotal = 10;//总页数
+        for (var pageIndex = 1; pageIndex <= pageTotal; pageIndex++) {
+            var str = "";
+            var pre = "《",//上一页
+                next = "》";//下一页
+            var startPageIndex = 0,//起始页码
+                endPageIndex = 0;//结束页码
+
+            if (pageIndex < 3) {//页码小于3时
+                startPageIndex = 1;
+                endPageIndex = 5;
+            } else if (pageIndex > pageTotal - 3) {//页码大于7时
+                startPageIndex = pageTotal - 4;
+                endPageIndex = pageTotal;
+            } else {//其它情况
+                startPageIndex = pageIndex - 2;
+                endPageIndex = pageIndex + 2;
+            }
+
+            //生成页码
+            for (var i = startPageIndex ; i <= endPageIndex; i++) {
+                str += i == pageIndex ? "[" + i + "] " : i + " ";
+            }
+            str = pre + str + next;
+            console.info(str)
+
+            $("#page").append(str + "<br />");
+        }
+    })
+</script>
+
+<div class="container-fluid" style="margin-left:15px">
+    <h3>Bootstrap分页样式</h3>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li class="active"><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+
+    <h3>生成内容：</h3>
+    <div id="page"></div>
+</div>
+

@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Part0Controller.cs" />
     <Compile Include="Controllers\Part1Controller.cs" />
     <Compile Include="Controllers\Part2Controller.cs" />
     <Compile Include="Controllers\Part3Controller.cs" />
@@ -188,6 +189,7 @@
     <Content Include="Views\Part2\Index.cshtml" />
     <Content Include="Views\Part3\Index.cshtml" />
     <Content Include="Views\Part4\Index.cshtml" />
+    <Content Include="Views\Part0\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,93 +6,47 @@
 
 <script>
     //总页数
-    var pagetotal = 10;
+    var pageTotal = 10;
     $(function () {
-        //for (var i = 1; i <= pagetotal; i++) {
-        //    var ref = showPages(i, pagetotal)
-        //    console.info(ref);
-        //}
-        //显示第几页，总页数
-        $("#page").append(showPages(1, pagetotal))
+        //页面加载后，默认显示第1页
+        $("#page").append(showPages(1, pageTotal))
     })
 
-    //生成分页HTML样式代码
-    function showPages(pageindex, pagetotal) {
+    //生成分页HTML代码
+    function showPages(pageIndex, pageTotal) {
         var str = "",
-            prePageIndex = (pageindex - 1) <= 0 ? pagetotal : (pageindex - 1),
-            nexPageIndex = (pageindex + 1) > pagetotal ? 1 : (pageindex + 1);
-        var pre = '<li><a href="javascript:changePage(' + prePageIndex + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>',
-            next = '<li><a href="javascript:changePage(' + nexPageIndex + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
+            prePageIndex = (pageIndex - 1) <= 0 ? pageTotal : (pageIndex - 1),
+            nexPageIndex = (pageIndex + 1) > pageTotal ? 1 : (pageIndex + 1),
+            pre = '<li><a href="javascript:changePage(' + prePageIndex + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>',//上一页
+            next = '<li><a href="javascript:changePage(' + nexPageIndex + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>',//下一页
+            startPageIndex = 0,//起始页码
+            endPageIndex = 0;//结束页码
 
-        if (pageindex <= 3) {
-            for (var i = 1; i <= 5; i++) {
-                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-            str = pre + str + next;
-        } else if (pageindex > (pagetotal - 3)) {
-            for (var i = (pagetotal - 4) ; i <= pagetotal; i++) {
-                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-            str = pre + str + next;
-        } else {
-            for (var i = (pageindex - 2) ; i <= pageindex + 2; i++) {
-                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-            str = pre + str + next;
+        if (pageIndex < 3) {//页码小于3时
+            startPageIndex = 1;
+            endPageIndex = 5;
+        } else if (pageIndex > pageTotal - 3) {//页码大于7时
+            startPageIndex = pageTotal - 4;
+            endPageIndex = pageTotal;
+        } else {//其它情况
+            startPageIndex = pageIndex - 2;
+            endPageIndex = pageIndex + 2;
         }
+
+        //生成页码
+        for (var i = startPageIndex ; i <= endPageIndex; i++) {
+            str += '<li class=\"' + (i == pageIndex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
+        }
+        str = pre + str + next;
+
         return '<ul class="pagination">' + str + '</ul>';
     }
 
     //页数点击事件
     function changePage(i) {
         $("#page").html('');
-        $("#page").append(showPages(i, pagetotal))
+        $("#page").append(showPages(i, pageTotal))
     }
-
-    //function showPages(page, total) {
-    //    var str = "";
-    //    var pre = "< ", next = " >";
-    //    if (page <= 3) {
-    //        for (var i = 1; i <= 5; i++) {
-    //            str += i == page ? "<a>" + page + "<a/> " : i + " ";
-    //        }
-    //        return str + next;
-    //    } else if (page >= 96) {
-    //        for (var i = 96; i <= total; i++) {
-    //            str += i == page ? "<a>" + page + "<a/> " : i + " ";
-    //        }
-    //        return pre + str;
-    //    } else {
-    //        for (var i = (page - 2) ; i <= page + 2; i++) {
-    //            str += i == page ? "<a>" + page + "<a/> " : i + " ";
-    //        }
-    //        return pre + str + next;
-    //    }
-    //}
-    //function showPages(page, total) {
-    //    var str = page + '';
-    //    for (var i = 1; i <= 3; i++) {
-    //        if (page - i > 1) {
-    //            str = page - i + ' ' + str;
-    //        }
-    //        if (page + i < total) {
-    //            str = str + ' ' + (page + i);
-    //        }
-    //    }
-    //    if (page - 4 > 1) {
-    //        str = '... ' + str;
-    //    }
-    //    if (page > 1) {
-    //        str = '上一页 ' + 1 + ' ' + str;
-    //    }
-    //    if (page + 4 < total) {
-    //        str = str + ' ...';
-    //    }
-    //    if (page < total) {
-    //        str = str + ' ' + total + ' 下一页';
-    //    }
-    //    return str;
-    //}
 </script>
 
 <div class="container-fluid" style="margin-left:15px">

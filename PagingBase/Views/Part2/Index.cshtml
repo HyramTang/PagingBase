@@ -6,22 +6,22 @@
 
 <script>
     //总页数
-    var pagetotal = 20;
+    var pageTotal = 10;
     $(function () {
         //显示第几页，总页数
-        $("#page").append(Paging(1, pagetotal))
+        $("#page").append(Paging(1, pageTotal))
     })
 
     //页数点击事件
-    function changePage(i) {
-        $("blockquote p").text("This is page " + i);
+    function changePage(pageIndex) {
+        $("blockquote p").text("This is page " + pageIndex);
         $("#page").html('');
-        $("#page").append(Paging(i, pagetotal))
+        $("#page").append(Paging(pageIndex, pageTotal))
     }
 </script>
 
 <div class="container-fluid" style="margin-left:15px">
-    <h3>动态显示内容分页效果：</h3>
+    <h3>动态显示每页内容：</h3>
 
     <blockquote style="margin-bottom:0px">
         <p>This is page 1</p>

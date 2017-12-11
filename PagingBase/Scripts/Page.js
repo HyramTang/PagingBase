@@ -1,24 +1,28 @@
 ﻿var Paging = (function () {
-    var pageContent = function (pageindex, pagetotal) {
+    var pageContent = function (pageIndex, pageTotal) {
         //生成分页HTML样式代码
         var str = "",
-            prePageIndex = (pageindex - 1) <= 0 ? pagetotal : (pageindex - 1),
-            nexPageIndex = (pageindex + 1) > pagetotal ? 1 : (pageindex + 1);
-        var pre = '<li><a href="javascript:changePage(' + prePageIndex + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>',
-            next = '<li><a href="javascript:changePage(' + nexPageIndex + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>';
+            prePageIndex = (pageIndex - 1) <= 0 ? pageTotal : (pageIndex - 1),
+            nexPageIndex = (pageIndex + 1) > pageTotal ? 1 : (pageIndex + 1),
+            pre = '<li><a href="javascript:changePage(' + prePageIndex + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>',//上一页
+            next = '<li><a href="javascript:changePage(' + nexPageIndex + ')" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>',//下一页
+            startPageIndex = 0,//起始页码
+            endPageIndex = 0;//结束页码
 
-        if (pageindex <= 3) {
-            for (var i = 1; i <= 5; i++) {
-                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-        } else if (pageindex > (pagetotal - 3)) {
-            for (var i = (pagetotal - 4) ; i <= pagetotal; i++) {
-                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
-        } else {
-            for (var i = (pageindex - 2) ; i <= pageindex + 2; i++) {
-                str += '<li class=\"' + (i == pageindex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
-            }
+        if (pageIndex < 3) {//页码小于3时
+            startPageIndex = 1;
+            endPageIndex = 5;
+        } else if (pageIndex > pageTotal - 3) {//页码大于7时
+            startPageIndex = pageTotal - 4;
+            endPageIndex = pageTotal;
+        } else {//其它情况
+            startPageIndex = pageIndex - 2;
+            endPageIndex = pageIndex + 2;
+        }
+
+        //生成页码
+        for (var i = startPageIndex ; i <= endPageIndex; i++) {
+            str += '<li class=\"' + (i == pageIndex ? 'active' : '') + '\"><a href="javascript:changePage(' + i + ')">' + i + '</a></li>';
         }
         str = pre + str + next;
         return '<ul class="pagination">' + str + '</ul>';
